@@ -18,7 +18,9 @@ const Input = (props) => {
                 console.log('Success');
                 alert('Success');
                 setAmount('');
-                props.setData([]);
+                document.getElementById('amountInput').value = '';
+                document.getElementById('dateInput').value = '';
+                props.getInfo();
             })
             .catch((error) => {
                 alert("INPUT CAN'T BE EMPTY!!");

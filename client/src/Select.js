@@ -1,10 +1,14 @@
 import React from 'react';
 
 function Select(props) {
-    const { startDate, setStartDate, endDate, setEndDate, getInfo } = props;
+    const { startDate, setStartDate, endDate, setEndDate, getInfo, setShowChart } = props;
     const formatDate = (date) => {
         return date.toISOString().slice(0, 10);
     };
+    const handler = () => {
+        setShowChart(true);
+        getInfo();
+    }
     return (
         <div>
             <div className="mx-10">
@@ -26,8 +30,8 @@ function Select(props) {
                     id="endDateInput" />
                 <div className="mt-4">
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold w-20 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        onClick={getInfo}
-                    >Get</button>
+                        onClick={handler}
+                    >Show</button>
                 </div>
             </div>
         </div>
