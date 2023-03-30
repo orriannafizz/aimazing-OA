@@ -1,39 +1,43 @@
 import React from 'react';
+import { Button } from '@mui/material';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateRangePicker } from '@mui/x-date-pickers-pro';
 
 function Select(props) {
-    const { startDate, setStartDate, endDate, setEndDate, getInfo, setShowChart } = props;
-    const formatDate = (date) => {
-        return date.toISOString().slice(0, 10);
-    };
+    const { setStartDate, setEndDate, getInfo, setShowChart } = props;
+
     const handler = () => {
         setShowChart(true);
         getInfo();
     }
+
     return (
         <div>
             <div className="mx-10">
-                <label className="block text-gray-700 font-bold mb-2">Start Date</label>
+                <label className="block text-gray-700 font-bold mb-3">SHOW DATA</label>
 
-                <input className="shadow appearance-none border rounded w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    type="date"
-                    name="startDate"
-                    onChange={(e) => setStartDate(new Date(e.target.value))}
-                    value={formatDate(startDate)}
-                    id="startDateInput" />
-                <label className="block text-gray-700 font-bold mb-2">End Date</label>
+                <div className="mt-10">
+                    <LocalizationProvider dateAdapter={AdapterDayjs} >
+                        <DateRangePicker
+                            onChange={(e) => {
+                                setStartDate(e[0]);
+                                setEndDate(e[1]);
+                            }}
 
-                <input className="shadow appearance-none border rounded w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    type="date"
-                    name="endDate"
-                    onChange={(e) => setEndDate(new Date(e.target.value))}
-                    value={formatDate(endDate)}
-                    id="endDateInput" />
-                <div className="mt-4">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold w-20 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        onClick={handler}
-                    >Show</button>
+                        />
+
+                    </LocalizationProvider>
+                </div>
+                <div className="mt-[60px]">
+
+                    <Button variant="outlined" onClick={handler}>
+                        Show
+                    </Button>
                 </div>
             </div>
+
+
         </div>
     );
 }
